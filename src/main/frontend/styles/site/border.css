@@ -1,0 +1,20 @@
+/* Border styles
+ * Primary block name: b
+ * By default, number modifier refers to length value in pixel.
+ * The number modifier sets the border width.
+ */
+
+.b-right--none {
+	border-right-style: none;
+}
+
+/* Underline styles based on border-bottom
+ * 
+ */
+
+.b-bottom--dotted {
+	border-bottom-style: dotted;
+}
+.b-bottom--1 {
+	border-bottom-width: 1px;
+}

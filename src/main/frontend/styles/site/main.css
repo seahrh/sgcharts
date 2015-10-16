@@ -1,0 +1,40 @@
+/* Background images
+ *
+ */
+.backdrop {
+	width: 100%;
+	height: 100%;
+	background: #f3f3f3;
+}
+
+/* Header bar
+ * Style classes cannot be used because material icons don't appear in markup
+ * until mdl header is upgraded by js.
+ */
+.my-header {
+	background-color: #ffffff;
+}
+.my-header .material-icons {
+	color: #767777 !important;
+}
+.my-header .mdl-layout__drawer-button {
+	background: transparent;
+	color: #767777;
+}
+/* Divider
+ *
+ */
+.divider-x {
+	height: 1px;
+	margin: 8px 0;
+}
+/* Customized styles for mdl tabs
+ * Taller height of tab underline (original 2px)
+ * Bold text when tab is selected
+ */
+.mdl-layout.is-upgraded .my-tab.mdl-layout__tab.is-active::after {
+	height: 3px;
+}
+.my-tab.is-active {
+	font-weight: bold;
+}

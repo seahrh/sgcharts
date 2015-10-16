@@ -1,0 +1,22 @@
+/* Styles controlling the flow of content in a box.
+ * Refer to the CSS Box Model:
+ * @url https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model
+ * Primary block name: flow
+ */
+
+/* Overflow
+ * Primary block name: overflow
+ */
+
+.overflow-x--hidden {
+	overflow-x: hidden;	
+}
+.overflow-y--hidden {
+	overflow-y: hidden;	
+}
+.overflow-x--scroll {
+	overflow-x: scroll;	
+}
+.overflow-y--scroll {
+	overflow-y: scroll;	
+}

@@ -1,0 +1,93 @@
+/* Margin styles
+ * Primary block name: m
+ * By default, number modifier represent length value in pixels.
+ * If number modifier ends with 'f' (fluid length), length value is in percent.
+ * If number modifier starts with 'neg', length value is negative.
+ */
+
+.m--0 {
+	margin: 0;
+}
+.m-top--15 {
+	margin-top: 15px;
+}
+.m-top--20 {
+	margin-top: 20px;
+}
+.m-top--25 {
+	margin-top: 25px;
+}
+.m-top--30 {
+	margin-top: 30px;
+}
+.m-top--50 {
+	margin-top: 50px;
+}
+.m-top--70 {
+	margin-top: 70px;
+}
+.m-top--100 {
+	margin-top: 100px;
+}
+.m-top--10f {
+	margin-top: 10%;
+}
+.m-top--15f {
+	margin-top: 15%;
+}
+.m-top--20f {
+	margin-top: 20%;
+}
+.m-right--10 {
+	margin-right: 10px;
+}
+.m-right--15 {
+	margin-right: 15px;
+}
+.m-right--20f {
+	margin-right: 20%;
+}
+.m-bottom--10 {
+	margin-bottom: 10px;
+}
+.m-bottom--50 {
+	margin-bottom: 50px;
+}
+.m-bottom--neg-26 {
+	margin-bottom: -26px;
+}
+.m-left--10 {
+	margin-left: 10px;
+}
+.m-left--20 {
+	margin-left: 20px;
+}
+
+/* m-x is block name for horizontal margin.
+ * m-y is block name for vertical margin.
+ */
+
+.m-x--10 {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.m-y--10 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.m-y--15 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.m-y--20 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.m-y--30 {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.m-y--40 {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}

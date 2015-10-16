@@ -1,0 +1,28 @@
+/* Text styles
+ * Primary block name: t
+ */
+
+.t-noline {
+	text-decoration: none;
+}
+
+/* Override boostrap underline for anchors */
+
+.t-noline--always, .t-noline--always:hover, .t-noline--always:focus {
+	text-decoration: none;
+}
+.t-underline {
+	text-decoration: underline;
+}
+.t-underline--hover:hover {
+	text-decoration: underline;
+}
+.t-underline--focus:focus {
+	text-decoration: underline;
+}
+.t-overline {
+	text-decoration: overline;
+}
+.t-line-through {
+	text-decoration: line-through;
+}

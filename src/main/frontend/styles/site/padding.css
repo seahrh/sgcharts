@@ -1,0 +1,53 @@
+/* Padding styles
+ * Primary block name: p
+ * By default, number modifier represent length value in pixels.
+ * If number modifier ends with 'f' (fluid length), length value is in percent.
+ * If number modifier starts with 'neg', length value is negative.
+ */
+
+.p--0 {
+	padding: 0;
+}
+.p--10 {
+	padding: 10px;
+}
+.p-top--20 {
+	padding-top: 20px;
+}
+.p-top--25 {
+	padding-top: 25px;
+}
+.p-top--30 {
+	padding-top: 30px;
+}
+.p-top--20f {
+	padding-top: 20%;
+}
+.p-bottom--25 {
+	padding-bottom: 25px;
+}
+
+/* p-x is horizontal padding.
+ * p-y is vertical padding.
+ */
+
+.p-x--30 {
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.p-y--15 {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.p-y--20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.p-y--30 {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.p-y--40 {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}

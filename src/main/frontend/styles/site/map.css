@@ -1,0 +1,22 @@
+/* Fix for bootstrap conflict with google maps
+ * @url http://stackoverflow.com/questions/9141249/twitter-bootstrap-css-affecting-google-maps
+ * @url https://github.com/twitter/bootstrap/issues/2410
+ */
+
+.map-canvas img {
+	max-width: none;
+}
+
+.map-canvas label {
+	width: auto;
+	display: inline;
+}
+
+/* Fix to position the google places autocomplete dropdown
+ * above the bootstrap modal's 1050 zindex.
+ * pac = Places Autocomplete
+ */
+
+.pac-container {
+	z-index: 1051 !important;
+}

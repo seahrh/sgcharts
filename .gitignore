@@ -57,3 +57,28 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Images
+# =========================
+
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.bmp
+*.gif
+*.ico
+
+# Project Specific
+# =========================
+
+.settings/
+eclipse-launch-profiles/
+target/
+src/main/webapp/vendor/
+src/main/webapp/scripts/
+src/main/webapp/images/
+src/main/webapp/styles/
+src/main/webapp/WEB-INF/pages/
+node_modules/
+test-output/

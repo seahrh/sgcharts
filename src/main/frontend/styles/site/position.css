@@ -1,0 +1,106 @@
+/* Positioning styles
+ * Primary block name: pos
+ */
+
+.pos-relative {
+	position: relative;
+}
+.pos-absolute {
+	position: absolute;
+}
+
+/* TRBL fitting
+ * 
+ */
+
+.pos-absolute--fit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+/* Absolute horizontal and vertical centering
+ * @url http://www.smashingmagazine.com/2013/08/absolute-horizontal-vertical-centering-css/
+ */
+
+.pos-absolute--center {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.pos-absolute--top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.pos-absolute--top-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.pos-absolute--top-right {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.pos-absolute--bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.pos-absolute--bottom-left {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.pos-absolute--bottom-right {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.pos-absolute--left {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+.pos-absolute--right {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+.pos-fixed {
+	position: fixed;
+}
+.pos-fixed--top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.pos-fixed--right {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+.pos-fixed--bottom {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.pos-fixed--left {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+}

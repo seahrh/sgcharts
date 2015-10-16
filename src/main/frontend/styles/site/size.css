@@ -1,0 +1,106 @@
+/* Height and width - properties controlling the size of a box.
+ * CSS Box Model
+ * @url https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model
+ * Height, primary block name: h
+ * Width, primary block name: w
+ * Otherwise, primary block name: size
+ * By default, number modifier refers to lengths in pixels.
+ * If number modifier ends with 'f' (fluid sizing), it is a length value in percent.
+ */
+.size--full {
+	height: 100%;
+	width: 100%;
+}
+.h--38 {
+	height: 38px;
+}
+.h--48 {
+	height: 48px;
+}
+.h--50 {
+	height: 50px;
+}
+.h--70 {
+	height: 70px;
+}
+.h--160 {
+	height: 160px;
+}
+.h--650 {
+	height: 650px;
+}
+.h--700 {
+	height: 700px;
+}
+.h--800 {
+	height: 800px;
+}
+.h--10f {
+	height: 10%;
+}
+.h--20f {
+	height: 20%;
+}
+.h--30f {
+	height: 30%;
+}
+.h--40f {
+	height: 40%;
+}
+.h--50f {
+	height: 50%;
+}
+.h--60f {
+	height: 60%;
+}
+.h--70f {
+	height: 70%;
+}
+.h--80f {
+	height: 80%;
+}
+.h--90f {
+	height: 90%;
+}
+.h--100f {
+	height: 100%;
+}
+.w--70 {
+	width: 70px;
+}
+.w--95 {
+	width: 95px;
+}
+.w--120 {
+	width: 120px;
+}
+.w--10f {
+	width: 10%;
+}
+.w--20f {
+	width: 20%;
+}
+.w--30f {
+	width: 30%;
+}
+.w--40f {
+	width: 40%;
+}
+.w--50f {
+	width: 50%;
+}
+.w--60f {
+	width: 60%;
+}
+.w--70f {
+	width: 70%;
+}
+.w--80f {
+	width: 80%;
+}
+.w--90f {
+	width: 90%;
+}
+.w--100f {
+	width: 100%;
+}

@@ -1,0 +1,86 @@
+/* Font styles
+ * Primary block name: f
+ */
+
+/* Font size
+ * By default, the number modifier represents one-tenth of an em.
+ * E.g. 11 is 1.1 em.
+ */
+
+.f-size--8 {
+	font-size: 0.8em;
+}
+.f-size--9 {
+	font-size: 0.9em;
+}
+.f-size--11 {
+	font-size: 1.1em;
+}
+.f-size--12 {
+	font-size: 1.2em;
+}
+.f-size--13 {
+	font-size: 1.3em;
+}
+.f-size--14 {
+	font-size: 1.4em;
+}
+.f-size--15 {
+	font-size: 1.5em;
+}
+.f-size--16 {
+	font-size: 1.6em;
+}
+.f-size--17 {
+	font-size: 1.7em;
+}
+.f-size--18 {
+	font-size: 1.8em;
+}
+.f-size--19 {
+	font-size: 1.9em;
+}
+.f-size--20 {
+	font-size: 2em;
+}
+.f-size--21 {
+	font-size: 2.1em;
+}
+.f-size--22 {
+	font-size: 2.2em;
+}
+.f-size--23 {
+	font-size: 2.3em;
+}
+.f-size--24 {
+	font-size: 2.4em;
+}
+.f-size--25 {
+	font-size: 2.5em;
+}
+.f-size--30 {
+	font-size: 3em;
+}
+.f-size--35 {
+	font-size: 3.5em;
+}
+.f-size--40 {
+	font-size: 4em;
+}
+.f-size--45 {
+	font-size: 4.5em;
+}
+.f-size--50 {
+	font-size: 5em;
+}
+
+/* Font weight & style
+ * 
+ */
+
+.f-bold {
+	font-weight: bold;
+}
+.f-italic {
+	font-style: italic;
+}
