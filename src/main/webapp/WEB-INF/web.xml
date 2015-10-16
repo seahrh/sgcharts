@@ -20,6 +20,14 @@
 		<servlet-name>IndexServlet</servlet-name>
 		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>HawkerRentalServlet</servlet-name>
+		<servlet-class>com.sgcharts.web.HawkerRentalServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HawkerRentalServlet</servlet-name>
+		<url-pattern>/hawker-rental</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<!-- Servlet's url-pattern without the prepending slash -->
 		<welcome-file>index</welcome-file>

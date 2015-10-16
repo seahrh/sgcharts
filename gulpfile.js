@@ -98,11 +98,18 @@ gulp.task('scripts:index', function() {
     return pageScript(srcs, page);
 });
 
+gulp.task('scripts:hawker', function() {
+    var page, srcs;
+    page = 'hawker';
+    srcs = ['page/' + page + '.js'];
+    return pageScript(srcs, page);
+});
+
 gulp.task('scripts', ['clean:scripts'], function(cb) {
     
     // No dependencies between scripts, so build all concurrently
     
-    runSequence(['scripts:ext', 'scripts:index'], cb);
+    runSequence(['scripts:ext', 'scripts:index', 'scripts:hawker'], cb);
 });
 
 function pageScript(srcs, page) {
@@ -115,7 +122,7 @@ function pageScript(srcs, page) {
     // Core modules: order of concatenation
     // Base and Util modules must be loaded first
 
-    CORE = [];
+    CORE = ['app/base.js', 'app/time.js', 'app/log.js'];
 
     return gulp.src(CORE.concat(srcs), {
         cwd : bases.app + 'scripts'
