@@ -2,32 +2,44 @@
 // Requires Jquery, Moment, Numeral, Google Charts
 
 ( function(Page, $, undefined) {
-        var Log, Chart, bidPsmData, schema, m$charts, mChartWrappers, stallTypes, twoDecimalPlacesFormat, moneyFormat, intFormat;
+        var Log, Chart, bidPsmData, schema, hawkerCentreMap, chartWrapperMap, stallTypes, twoDecimalPlacesFormat, moneyFormat, intFormat;
         Chart = sgcharts.Chart;
         Log = sgcharts.Log;
         schema = ["Hawker Centre", "Stall Type", "Year", "Count", "Min", "Max", "Median", "Average"];
-        m$charts = {
-            "AMOY STREET FOOD CENTRE" : $("#amoy-street-food-centre__chart"),
-            "BEO CRESCENT MARKET" : $("#beo-crescent-market__chart"),
-            "BERSEH FOOD CENTRE" : $("#berseh-food-centre__chart"),
-            "BLK 665 BUFFALO ROAD" : $("#blk-665-buffalo-road__chart"),
-            "BLK 1 JALAN KUKOH" : $("#blk-1-jalan-kukoh__chart"),
-            "BLK 11 TELOK BLANGAH CRESCENT" : $("#blk-11-telok-blangah-crescent__chart"),
-            "BLK 112 JALAN BUKIT MERAH" : $("#blk-112-jalan-bukit-merah__chart"),
-            "BLK 115 BUKIT MERAH VIEW" : $("#blk-115-bukit-merah-view__chart"),
-            "BLK 117 ALJUNIED AVENUE 2" : $("#blk-117-aljunied-avenue-2__chart"),
-            "BLK 120 BUKIT MERAH LANE 1" : $("#blk-120-bukit-merah-lane-1__chart"),
-            "BLK 127 TOA PAYOH LORONG 1" : $("#blk-127-toa-payoh-lorong-1__chart"),
-            "BLK 14 HAIG ROAD" : $("#blk-14-haig-road__chart")
+        hawkerCentreMap = {
+            "AMOY STREET FOOD CENTRE" : $("#amoy-street-food-centre"),
+            "BEO CRESCENT MARKET" : $("#beo-crescent-market"),
+            "BERSEH FOOD CENTRE" : $("#berseh-food-centre"),
+            "BLK 665 BUFFALO ROAD" : $("#blk-665-buffalo-road"),
+            "BLK 1 JALAN KUKOH" : $("#blk-1-jalan-kukoh"),
+            "BLK 11 TELOK BLANGAH CRESCENT" : $("#blk-11-telok-blangah-crescent"),
+            "BLK 112 JALAN BUKIT MERAH" : $("#blk-112-jalan-bukit-merah"),
+            "BLK 115 BUKIT MERAH VIEW" : $("#blk-115-bukit-merah-view"),
+            "BLK 117 ALJUNIED AVENUE 2" : $("#blk-117-aljunied-avenue-2"),
+            "BLK 120 BUKIT MERAH LANE 1" : $("#blk-120-bukit-merah-lane-1"),
+            "BLK 127 TOA PAYOH LORONG 1" : $("#blk-127-toa-payoh-lorong-1"),
+            "BLK 14 HAIG ROAD" : $("#blk-14-haig-road")
 
         };
-        mChartWrappers = {};
+        chartWrapperMap = {};
         stallTypes = ["Cooked Food Stalls", "Market Stalls", "Lock-Up Stalls"];
 
         Page.documentReady = function() {
             Log.debug("document ready");
+            hawkerCentreTitles();
 
         };
+
+        function hawkerCentreTitles() {
+            var hc, $title;
+            for (hc in hawkerCentreMap) {
+                if (hawkerCentreMap.hasOwnProperty(hc)) {
+                    $title = hawkerCentreMap[hc].find(".hawker-centre__title");
+                    $title.text(hc);
+                }
+            }
+        }
+
 
         Page.googleVisApiOnLoad = function() {
             Log.debug("google visualization api loaded");
@@ -90,14 +102,19 @@
         }
 
         function getCharts() {
-            var hawkerCentre, $chart, cw;
-            for (hawkerCentre in m$charts) {
-                if (m$charts.hasOwnProperty(hawkerCentre)) {
+            var hc, $chart, cw;
+            for (hc in hawkerCentreMap) {
+                if (hawkerCentreMap.hasOwnProperty(hc)) {
 
                     cw = new google.visualization.ChartWrapper({
                         "chartType" : "AreaChart",
                         "options" : {
-                            "title" : hawkerCentre,
+                            "title" : hc,
+                            "titlePosition" : "none",
+                            "titleTextStyle" : {
+                                "fontSize" : 11,
+                                "bold" : false
+                            },
                             "hAxis" : {
                                 "textPosition" : "out",
                                 "ticks" : [2012, 2013, 2014, 2015],
@@ -111,13 +128,23 @@
                             "legend" : {
                                 "position" : "none"
                             },
-                            "focusTarget" : "category"
+                            "focusTarget" : "category",
+                            "tooltip" : {
+                                "trigger" : "none",
+                                "textStyle" : {
+                                    "fontSize" : 12
+                                }
+                            },
+                            "chartArea" : {
+                                "height" : "80%",
+                                "width" : "70%"
+                            }
                         }
                     });
 
                     scrubYear(cw);
 
-                    mChartWrappers[hawkerCentre] = cw;
+                    chartWrapperMap[hc] = cw;
                 }
             }
         }
@@ -125,56 +152,124 @@
         function scrubYear(chartWrapper) {
             google.visualization.events.addListener(chartWrapper, 'ready', function() {
                 google.visualization.events.addListener(chartWrapper.getChart(), "onmouseover", function(e) {
-                    var row, rows, data, year, cw, hawkerCentre, chart;
+                    var rowIndex, rows, data, year, cw, hc, chart, yearIndex, view, count, metricLabel, txt, median, min, max;
                     row = e.row;
                     data = chartWrapper.getDataTable();
 
-                    // Year is first column
+                    metricLabel = "median";
 
-                    year = data.getValue(row, 0);
+                    yearIndex = schema.indexOf("Year");
+                    year = data.getValue(row, yearIndex);
+
                     Log.debug("row: " + row + " year: " + year);
 
-                    for (hawkerCentre in mChartWrappers) {
-                        if (mChartWrappers.hasOwnProperty(hawkerCentre)) {
-                            cw = mChartWrappers[hawkerCentre];
+                    for (hc in chartWrapperMap) {
+                        if (chartWrapperMap.hasOwnProperty(hc)) {
+                            cw = chartWrapperMap[hc];
+                            chart = cw.getChart();
                             data = cw.getDataTable();
+
                             rows = data.getFilteredRows([{
-                                "column" : 0,
+                                "column" : yearIndex,
                                 "value" : year
                             }]);
-                            chart = cw.getChart();
-                            chart.setSelection([{
-                                "row" : rows[0],
-                                "column" : null
-                            }]);
+
+                            //Log.debug(hc + ": " + JSON.stringify(data) + " Rows:" + rows);
+
+                            if ($.isArray(rows) && rows.length > 0) {
+                                rowIndex = rows[0];
+                                
+                                chart.setSelection([{
+                                    "row" : rowIndex,
+                                    "column" : null
+                                }]);
+                                //Log.debug("rowIndex: " + rowIndex);
+                                count = data.getValue(rowIndex, schema.indexOf("Count"));
+                                median = data.getValue(rowIndex, schema.indexOf("Median"));
+                                min = data.getValue(rowIndex, schema.indexOf("Min"));
+                                max = data.getValue(rowIndex, schema.indexOf("Max"));
+
+                                kpi(hc, median, "median");
+                                kpi(hc, min, "min");
+                                kpi(hc, max, "max");
+                                kpiMsg(hc, year, count);
+                            } else {
+                                chart.setSelection();
+                                clearKpi(hc);
+                            }
+
                         }
                     }
                 });
             });
         }
 
+        function kpiMsg(hawkerCentre, year, count) {
+            var $msg, txt;
+            $msg = hawkerCentreMap[hawkerCentre].find(".hawker-centre__kpi-msg");
+            txt = "(year " + year + ", n=" + count + ")";
+            $msg.text(txt);
+            $msg.removeClass("invisible");
+        }
+
+        function clearKpi(hawkerCentre) {
+            var $msg;
+            $msg = hawkerCentreMap[hawkerCentre].find(".hawker-centre__kpi-msg, .hawker-centre__kpi");
+            $msg.addClass("invisible");
+        }
+
+        function kpi(hawkerCentre, val, type) {
+            var $kpi, txt, selector;
+            if (type === "min") {
+                selector = ".hawker-centre__kpi__min";
+            }
+            if (type === "median") {
+                selector = ".hawker-centre__kpi__median";
+            }
+            if (type === "max") {
+                selector = ".hawker-centre__kpi__max";
+            }
+            $kpi = hawkerCentreMap[hawkerCentre].find(selector);
+            if (!$kpi.exists()) {
+                Log.error("$kpi does not exist for selector: " + selector);
+                return;
+            }
+            txt = formatBidPsm(val);
+            $kpi.text(txt);
+            $kpi = hawkerCentreMap[hawkerCentre].find(".hawker-centre__kpi");
+            $kpi.removeClass("invisible");
+        }
+
+        function formatBidPsm(val) {
+            return numeral(val).format("$0,0") + " psm";
+        }
+
         function drawCharts(data, cols, stallType) {
-            var hawkerCentre, $chart, cw, view, rows;
-            for (hawkerCentre in mChartWrappers) {
-                if (mChartWrappers.hasOwnProperty(hawkerCentre)) {
-                    cw = mChartWrappers[hawkerCentre];
-                    $chart = m$charts[hawkerCentre];
+            var hc, $chart, cw, rows, view;
+            for (hc in chartWrapperMap) {
+                if (chartWrapperMap.hasOwnProperty(hc)) {
+                    cw = chartWrapperMap[hc];
+                    $chart = hawkerCentreMap[hc].find(".hawker-centre__chart");
 
-                    // TODO remove - Remove all existing listeners, if any
+                    // Filter by hawker centre to get the relevant rows
+                    // Set this as the data table
 
-                    //google.visualization.events.removeAllListeners(cw);
                     view = new google.visualization.DataView(data);
                     rows = data.getFilteredRows([{
                         "column" : schema.indexOf("Hawker Centre"),
-                        "value" : hawkerCentre
+                        "value" : hc
                     }, {
                         "column" : schema.indexOf("Stall Type"),
                         "value" : stallType
                     }]);
                     view.setRows(rows);
-                    view.setColumns(cols);
-
                     cw.setDataTable(view);
+
+                    // Apply another filter to show the relevant columns in the chart
+
+                    cw.setView({
+                        "columns" : cols
+                    });
                     cw.draw($chart[0]);
                 }
             }

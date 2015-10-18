@@ -1,0 +1,15 @@
+.hawker-centre {
+	margin: 25px 0 0 0;
+}
+.hawker-centre__kpi, .hawker-centre__kpi-msg {
+	height: 25px;
+}
+.hawker-centre__title {
+	height: 25px;
+}
+.hawker-centre__chart {
+	height: 175px;
+}
+.hawker-centre__kpi__min, .hawker-centre__kpi__median, .hawker-centre__kpi__max {
+	font-weight: bold;
+}
