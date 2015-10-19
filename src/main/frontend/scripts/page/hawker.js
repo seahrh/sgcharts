@@ -2,7 +2,7 @@
 // Requires Jquery, Moment, Numeral, Google Charts
 
 ( function(Page, $, undefined) {
-        var Log, Chart, bidPsmData, bidData, schema, hawkerCentreMap, chartWrapperMap, stallTypes, chartTypes, plotColumns;
+        var Log, Chart, bidPsmData, bidData, schema, hawkerCentreMap, chartWrapperMap, stallTypes, dimensions, plotColumns, selectedStallType, selectedDimension;
         Chart = sgcharts.Chart;
         Log = sgcharts.Log;
         schema = ["Hawker Centre", "Stall Type", "Year", "Count", "Min", "Max", "Median", "Average"];
@@ -23,13 +23,16 @@
         };
         chartWrapperMap = {};
         stallTypes = ["Cooked Food Stalls", "Market Stalls", "Lock-Up Stalls"];
-        chartTypes = ["bid", "bid-psm"];
+        selectedStallType = stallTypes[0];
+        dimensions = ["bid", "bid-psm"];
+        selectedDimension = dimensions[0];
+        
         plotColumns = [schema.indexOf("Year"), schema.indexOf("Min"), schema.indexOf("Median"), schema.indexOf("Max")];
 
         Page.documentReady = function() {
             Log.debug("document ready");
             hawkerCentreTitles();
-
+            dimensionSelector();
         };
 
         function hawkerCentreTitles() {
@@ -43,8 +46,28 @@
         }
 
         function dimensionSelector() {
-            var bid, bidPsm;
-
+            var $buttons, $bid, $bidPsm;
+            $bid = $("#dimension__bid");
+            $bidPsm = $("#dimension__bid-psm");
+            $buttons = $bid.add($bidPsm);
+            
+            // Show bid data
+            
+            $bid.on("click", function(){
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+                selectedDimension = dimensions[0];
+                drawCharts(bidData, plotColumns);
+            });
+            
+            // Show bid psm data
+            
+            $bidPsm.on("click", function(){
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+                selectedDimension = dimensions[1];
+                drawCharts(bidPsmData, plotColumns);
+            });
         }
 
 
@@ -80,7 +103,7 @@
 
         function handleBidPsmData(response) {
             var data, cookedFoodStalls;
-            cookedFoodStalls = stallTypes[0];
+            
             Log.info("received bid psm data");
             if (response.isError()) {
                 Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
@@ -93,14 +116,14 @@
 
             // Do not draw charts. By default, draw bid data first.
 
-            //drawCharts(chartTypes[1], bidData, plotColumns, cookedFoodStalls);
+            //drawCharts(dimensions[1], bidData, plotColumns, cookedFoodStalls);
         }
 
         function handleBidData(response) {
-            var data, cookedFoodStalls, bidChart;
+            var data;
             Log.info("received bid data");
-            cookedFoodStalls = stallTypes[0];
-            bidChart = chartTypes[0];
+            
+            
 
             if (response.isError()) {
                 Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
@@ -111,7 +134,7 @@
 
             bidData = format(data);
 
-            drawCharts(bidChart, bidData, plotColumns, cookedFoodStalls);
+            drawCharts(bidData, plotColumns);
         }
 
         function format(data) {
@@ -191,12 +214,12 @@
                 return;
             }
 
-            if (type === chartTypes[0]) {
+            if (type === dimensions[0]) {
 
                 // Bid chart
 
                 ticks = [0, 1000, 2000, 3000, 4000, 5000];
-            } else if (type === chartTypes[1]) {
+            } else if (type === dimensions[1]) {
 
                 // Bid $psm chart
 
@@ -254,7 +277,7 @@
 
                                 // Bid chart
 
-                                if (chartType === chartTypes[0]) {
+                                if (chartType === dimensions[0]) {
                                     median = numeral(median).format("$0,0");
                                     min = numeral(min).format("$0,0");
                                     max = numeral(max).format("$0,0");
@@ -262,7 +285,7 @@
 
                                 // Bid $psm chart
 
-                                if (chartType === chartTypes[1]) {
+                                if (chartType === dimensions[1]) {
                                     median = numeral(median).format("$0,0") + " psm";
                                     min = numeral(min).format("$0,0") + " psm";
                                     max = numeral(max).format("$0,0") + " psm";
@@ -322,13 +345,13 @@
             $kpi.removeClass("invisible");
         }
 
-        function drawCharts(chartType, data, cols, stallType) {
+        function drawCharts(data, cols) {
             var hc, $chart, cw, rows, view;
             Log.info("draw charts");
             for (hc in chartWrapperMap) {
                 if (chartWrapperMap.hasOwnProperty(hc)) {
                     cw = chartWrapperMap[hc];
-                    cw.setChartName(chartType);
+                    cw.setChartName(selectedDimension);
                     cw = setChartOptions(cw);
 
                     // Filter by hawker centre to get the relevant rows
@@ -340,7 +363,7 @@
                         "value" : hc
                     }, {
                         "column" : schema.indexOf("Stall Type"),
-                        "value" : stallType
+                        "value" : selectedStallType
                     }]);
                     view.setRows(rows);
                     cw.setDataTable(view);
