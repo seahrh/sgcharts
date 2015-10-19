@@ -26,13 +26,14 @@
         selectedStallType = stallTypes[0];
         dimensions = ["bid", "bid-psm"];
         selectedDimension = dimensions[0];
-        
+
         plotColumns = [schema.indexOf("Year"), schema.indexOf("Min"), schema.indexOf("Median"), schema.indexOf("Max")];
 
         Page.documentReady = function() {
             Log.debug("document ready");
             hawkerCentreTitles();
             dimensionSelector();
+            stallTypeSelector();
         };
 
         function hawkerCentreTitles() {
@@ -45,24 +46,65 @@
             }
         }
 
+        function stallTypeSelector() {
+            var $buttons, $cookedFood, $market, $lockup;
+            $cookedFood = $("#stall-type__cooked-food");
+            $market = $("#stall-type__market");
+            $lockup = $("#stall-type__lockup");
+            $buttons = $cookedFood.add($market).add($lockup);
+
+            // Show cooked food data
+
+            $cookedFood.on("click", function() {
+                var data;
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+                selectedStallType = stallTypes[0];
+                data = dimensionData(selectedDimension);
+                drawCharts(data, plotColumns);
+            });
+
+            // Show market stall data
+
+            $market.on("click", function() {
+                var data;
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+                selectedStallType = stallTypes[1];
+                data = dimensionData(selectedDimension);
+                drawCharts(data, plotColumns);
+            });
+
+            // Show lockup stall data
+
+            $lockup.on("click", function() {
+                var data;
+                $buttons.removeClass("active");
+                $(this).addClass("active");
+                selectedStallType = stallTypes[2];
+                data = dimensionData(selectedDimension);
+                drawCharts(data, plotColumns);
+            });
+        }
+
         function dimensionSelector() {
             var $buttons, $bid, $bidPsm;
             $bid = $("#dimension__bid");
             $bidPsm = $("#dimension__bid-psm");
             $buttons = $bid.add($bidPsm);
-            
+
             // Show bid data
-            
-            $bid.on("click", function(){
+
+            $bid.on("click", function() {
                 $buttons.removeClass("active");
                 $(this).addClass("active");
                 selectedDimension = dimensions[0];
                 drawCharts(bidData, plotColumns);
             });
-            
+
             // Show bid psm data
-            
-            $bidPsm.on("click", function(){
+
+            $bidPsm.on("click", function() {
                 $buttons.removeClass("active");
                 $(this).addClass("active");
                 selectedDimension = dimensions[1];
@@ -81,9 +123,9 @@
         function query() {
             var url, q, sQuery;
 
-            // Sort by year
+            // Sort by hawker centre, stall type, year
 
-            sQuery = "select A, B, C, D, E, F, G, H order by C options no_format";
+            sQuery = "select A, B, C, D, E, F, G, H order by A, B, C options no_format";
 
             // Bid data
 
@@ -103,7 +145,7 @@
 
         function handleBidPsmData(response) {
             var data, cookedFoodStalls;
-            
+
             Log.info("received bid psm data");
             if (response.isError()) {
                 Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
@@ -122,8 +164,6 @@
         function handleBidData(response) {
             var data;
             Log.info("received bid data");
-            
-            
 
             if (response.isError()) {
                 Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
@@ -158,6 +198,17 @@
             return data;
         }
 
+        function dimensionData(dimension) {
+            if (dimension === dimensions[0]) {
+                return bidData;
+            }
+            if (dimension === dimensions[1]) {
+                return bidPsmData;
+            }
+            Log.error("Dimension is an invalid value: " + dimension);
+            return;
+        }
+
         function getCharts() {
             var hc, $chart, cw;
             for (hc in hawkerCentreMap) {
@@ -180,7 +231,7 @@
                             "vAxis" : {
                                 "textPosition" : "out",
                                 "ticks" : [0, 200, 400, 600, 800],
-                                "format" : "$#,#"
+                                "format" : "$#,###"
                             },
                             "legend" : {
                                 "position" : "none"
@@ -376,6 +427,10 @@
                     $chart = hawkerCentreMap[hc].find(".hawker-centre__chart");
 
                     cw.draw($chart[0]);
+
+                    // Hide all kpi messages
+
+                    clearKpi(hc);
                 }
             }
         }

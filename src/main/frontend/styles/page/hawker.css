@@ -13,4 +13,6 @@
 .hawker-centre__kpi__min, .hawker-centre__kpi__median, .hawker-centre__kpi__max {
 	font-weight: bold;
 }
-
+#stall-type, #dimension {
+	margin: 20px 0 0 0;
+}
