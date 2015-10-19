@@ -7,19 +7,103 @@
         Log = sgcharts.Log;
         schema = ["Hawker Centre", "Stall Type", "Year", "Count", "Min", "Max", "Median", "Average"];
         hawkerCentreMap = {
-            "AMOY STREET FOOD CENTRE" : $("#amoy-street-food-centre"),
-            "BEO CRESCENT MARKET" : $("#beo-crescent-market"),
-            "BERSEH FOOD CENTRE" : $("#berseh-food-centre"),
-            "BLK 665 BUFFALO ROAD" : $("#blk-665-buffalo-road"),
-            "BLK 1 JALAN KUKOH" : $("#blk-1-jalan-kukoh"),
-            "BLK 11 TELOK BLANGAH CRESCENT" : $("#blk-11-telok-blangah-crescent"),
-            "BLK 112 JALAN BUKIT MERAH" : $("#blk-112-jalan-bukit-merah"),
-            "BLK 115 BUKIT MERAH VIEW" : $("#blk-115-bukit-merah-view"),
-            "BLK 117 ALJUNIED AVENUE 2" : $("#blk-117-aljunied-avenue-2"),
-            "BLK 120 BUKIT MERAH LANE 1" : $("#blk-120-bukit-merah-lane-1"),
-            "BLK 127 TOA PAYOH LORONG 1" : $("#blk-127-toa-payoh-lorong-1"),
-            "BLK 14 HAIG ROAD" : $("#blk-14-haig-road")
-
+            "AMOY STREET FOOD CENTRE" : {},
+            "BEO CRESCENT MARKET" : {},
+            "BERSEH FOOD CENTRE" : {},
+            "BLK 1 JALAN KUKOH" : {},
+            "BLK 105 HOUGANG AVENUE 1" : {},
+            "BLK 11 TELOK BLANGAH CRESCENT" : {},
+            "BLK 112 JALAN BUKIT MERAH" : {},
+            "BLK 115 BUKIT MERAH VIEW" : {},
+            "BLK 117 ALJUNIED AVENUE 2" : {},
+            "BLK 120 BUKIT MERAH LANE 1" : {},
+            "BLK 127 TOA PAYOH LORONG 1" : {},
+            "BLK 13 HAIG ROAD" : {},
+            "BLK 137 TAMPINES STREET 11" : {},
+            "BLK 14 HAIG ROAD" : {},
+            "BLK 159 MEI CHIN ROAD" : {},
+            "BLK 16 BEDOK SOUTH ROAD" : {},
+            "BLK 160 ANG MO KIO AVENUE 4" : {},
+            "BLK 17 UPPER BOON KENG ROAD" : {},
+            "BLK 209 HOUGANG STREET 21" : {},
+            "BLK 21 MARSILING LANE" : {},
+            "BLK 210 TOA PAYOH LORONG 8" : {},
+            "BLK 216 BEDOK NORTH STREET 1" : {},
+            "BLK 22 LORONG 7 TOA PAYOH" : {},
+            "BLK 22 TOA PAYOH LORONG 7" : {},
+            "BLK 221A BOON LAY PLACE" : {},
+            "BLK 226D ANG MO KIO AVENUE 1" : {},
+            "BLK 226D ANG MO KIO AVENUE1" : {},
+            "BLK 22B HAVELOCK ROAD" : {},
+            "BLK 254 JURONG EAST STREET 24" : {},
+            "BLK 270 QUEEN STREET" : {},
+            "BLK 29 BENDEMEER ROAD" : {},
+            "BLK 3 CHANGI VILLAGE ROAD" : {},
+            "BLK 32 NEW MARKET ROAD" : {},
+            "BLK 320 SHUNFU ROAD" : {},
+            "BLK 335 SMITH STREET" : {},
+            "BLK 341 ANG MO KIO AVENUE 1" : {},
+            "BLK 347 JURONG EAST AVENUE 1" : {},
+            "BLK 353 CLEMENTI AVENUE 2" : {},
+            "BLK 36 TELOK BLANGAH RISE" : {},
+            "BLK 37A TEBAN GARDENS ROAD" : {},
+            "BLK 409 ANG MO KIO AVENUE 10" : {},
+            "BLK 41A CAMBRIDGE ROAD" : {},
+            "BLK 44 HOLLAND DRIVE" : {},
+            "BLK 448 CLEMENTI AVENUE 3" : {},
+            "BLK 448 CLEMENTI AVENUE 4" : {},
+            "BLK 453A ANG MO KIO AVENUE 10" : {},
+            "BLK 49 SIMS PLACE" : {},
+            "BLK 4A EUNOS CRESCENT" : {},
+            "BLK 4A JALAN BATU" : {},
+            "BLK 502 WEST COAST DRIVE" : {},
+            "BLK 503 WEST COAST DRIVE" : {},
+            "BLK 50A MARINE TERRACE" : {},
+            "BLK 51 OLD AIRPORT ROAD" : {},
+            "BLK 511 BEDOK NORTH STREET 3" : {},
+            "BLK 527 ANG MO KIO AVENUE 10" : {},
+            "BLK 531A UPPER CROSS STREET" : {},
+            "BLK 538 BEDOK NORTH STREET 3" : {},
+            "BLK 58 NEW UPPER CHANGI ROAD" : {},
+            "BLK 6 JALAN BUKIT MERAH" : {},
+            "BLK 6 TANJONG PAGAR PLAZA" : {},
+            "BLK 628 ANG MO KIO AVENUE 4" : {},
+            "BLK 630 BEDOK RESERVOIR ROAD" : {},
+            "BLK 665 BUFFALO ROAD" : {},
+            "BLK 7 EMPRESS ROAD" : {},
+            "BLK 724 ANG MO KIO AVENUE 6" : {},
+            "BLK 726 CLEMENTI WEST STREET 2" : {},
+            "BLK 74 TOA PAYOH LORONG 4" : {},
+            "BLK 79 CIRCUIT ROAD" : {},
+            "BLK 79 REDHILL LANE" : {},
+            "BLK 79A CIRCUIT ROAD" : {},
+            "BLK 80 CIRCUIT ROAD" : {},
+            "BLK 82 TELOK BLANGAH DRIVE" : {},
+            "BLK 85 BEDOK NORTH STREET 4" : {},
+            "BLK 85 REDHILL LANE" : {},
+            "BLK 89 CIRCUIT ROAD" : {},
+            "BLK 90 WHAMPOA DRIVE" : {},
+            "BLK 91 WHAMPOA DRIVE" : {},
+            "BLK 92 WHAMPOA DRIVE" : {},
+            "BLK 93 TOA PAYOH LORONG 4" : {},
+            "BUKIT TIMAH MARKET" : {},
+            "COMMONWEALTH CRESCENT MARKET" : {},
+            "DUNMAN FOOD CENTRE" : {},
+            "EAST COAST LAGOON FOOD VILLAGE" : {},
+            "GEYLANG SERAI MARKET" : {},
+            "GOLDEN MILE FOOD CENTRE" : {},
+            "HOLLAND ROAD MARKET" : {},
+            "HOLLAND VILLAGE MARKET" : {},
+            "KALLANG ESTATE MARKET" : {},
+            "MARKET STREET FOOD CENTRE" : {},
+            "MAXWELL FOOD CENTRE" : {},
+            "NEWTON FOOD CENTRE" : {},
+            "NORTH BRIDGE ROAD MARKET" : {},
+            "SERANGOON GARDEN MARKET" : {},
+            "TAMAN JURONG MARKET & FOOD CENTRE" : {},
+            "TANGLIN HALT MARKET" : {},
+            "TIONG BAHRU MARKET" : {},
+            "ZION RIVERSIDE FOOD CENTRE" : {}
         };
         chartWrapperMap = {};
         stallTypes = ["Cooked Food Stalls", "Market Stalls", "Lock-Up Stalls"];
@@ -31,16 +115,27 @@
 
         Page.documentReady = function() {
             Log.debug("document ready");
-            hawkerCentreTitles();
+            hawkerCentres();
             dimensionSelector();
             stallTypeSelector();
         };
 
-        function hawkerCentreTitles() {
-            var hc, $title;
+        function hawkerCentreId(name) {
+            return name.toLowerCase().split(" ").join("-");
+        }
+
+        function hawkerCentres() {
+            var hc, $title, $template, $hawkerCentre, $row;
+            $template = $("#hawker-centre-template");
+            $row = $("#hawker-centre-row");
             for (hc in hawkerCentreMap) {
                 if (hawkerCentreMap.hasOwnProperty(hc)) {
-                    $title = hawkerCentreMap[hc].find(".hawker-centre__title");
+                    $hawkerCentre = $template.clone();
+                    $hawkerCentre.prop("id", hawkerCentreId(hc));
+                    $hawkerCentre.removeClass("hidden");
+                    $row.append($hawkerCentre);
+                    hawkerCentreMap[hc] = $hawkerCentre;
+                    $title = $hawkerCentre.find(".hawker-centre__title");
                     $title.text(hc);
                 }
             }
