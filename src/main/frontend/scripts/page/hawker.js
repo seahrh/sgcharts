@@ -2,7 +2,7 @@
 // Requires Jquery, Moment, Numeral, Google Charts
 
 ( function(Page, $, undefined) {
-        var Log, Chart, bidPsmData, schema, hawkerCentreMap, chartWrapperMap, stallTypes, twoDecimalPlacesFormat, moneyFormat, intFormat;
+        var Log, Chart, bidPsmData, bidData, schema, hawkerCentreMap, chartWrapperMap, stallTypes, chartTypes, plotColumns;
         Chart = sgcharts.Chart;
         Log = sgcharts.Log;
         schema = ["Hawker Centre", "Stall Type", "Year", "Count", "Min", "Max", "Median", "Average"];
@@ -23,6 +23,8 @@
         };
         chartWrapperMap = {};
         stallTypes = ["Cooked Food Stalls", "Market Stalls", "Lock-Up Stalls"];
+        chartTypes = ["bid", "bid-psm"];
+        plotColumns = [schema.indexOf("Year"), schema.indexOf("Min"), schema.indexOf("Median"), schema.indexOf("Max")];
 
         Page.documentReady = function() {
             Log.debug("document ready");
@@ -40,10 +42,80 @@
             }
         }
 
+        function dimensionSelector() {
+            var bid, bidPsm;
+
+        }
+
 
         Page.googleVisApiOnLoad = function() {
             Log.debug("google visualization api loaded");
 
+            query();
+            getCharts();
+        };
+
+        function query() {
+            var url, q, sQuery;
+
+            // Sort by year
+
+            sQuery = "select A, B, C, D, E, F, G, H order by C options no_format";
+
+            // Bid data
+
+            url = "https://docs.google.com/spreadsheets/d/1dLIO3YPGuAG_komdWQc1Hwl4ED6jDuaJzoSJ__zqmO4/gviz/tq?gid=914354820&headers=1";
+            q = new google.visualization.Query(url);
+            q.setQuery(sQuery);
+            q.send(handleBidData);
+
+            // Bid $psm data
+
+            url = "https://docs.google.com/spreadsheets/d/1dLIO3YPGuAG_komdWQc1Hwl4ED6jDuaJzoSJ__zqmO4/gviz/tq?gid=0&headers=1";
+            q = new google.visualization.Query(url);
+            q.setQuery(sQuery);
+            q.send(handleBidPsmData);
+
+        }
+
+        function handleBidPsmData(response) {
+            var data, cookedFoodStalls;
+            cookedFoodStalls = stallTypes[0];
+            Log.info("received bid psm data");
+            if (response.isError()) {
+                Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
+                return;
+            }
+            data = response.getDataTable();
+            //Log.debug(JSON.stringify(data));
+
+            bidPsmData = format(data);
+
+            // Do not draw charts. By default, draw bid data first.
+
+            //drawCharts(chartTypes[1], bidData, plotColumns, cookedFoodStalls);
+        }
+
+        function handleBidData(response) {
+            var data, cookedFoodStalls, bidChart;
+            Log.info("received bid data");
+            cookedFoodStalls = stallTypes[0];
+            bidChart = chartTypes[0];
+
+            if (response.isError()) {
+                Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
+                return;
+            }
+            data = response.getDataTable();
+            //Log.debug(JSON.stringify(data));
+
+            bidData = format(data);
+
+            drawCharts(bidChart, bidData, plotColumns, cookedFoodStalls);
+        }
+
+        function format(data) {
+            var twoDecimalPlacesFormat, moneyFormat, intFormat;
             moneyFormat = new google.visualization.NumberFormat({
                 "prefix" : "$",
                 "pattern" : "#,###.##"
@@ -56,49 +128,11 @@
             intFormat = new google.visualization.NumberFormat({
                 "pattern" : "#,###"
             });
-            query();
-            getCharts();
-        };
-
-        function query() {
-            var url, q;
-
-            // Bid $psm data
-
-            url = "https://docs.google.com/spreadsheets/d/1dLIO3YPGuAG_komdWQc1Hwl4ED6jDuaJzoSJ__zqmO4/edit#gid=0";
-            q = new google.visualization.Query(url);
-
-            // Sort by year
-
-            q.setQuery("select A, B, C, D, E, F, G, H order by C options no_format");
-            q.send(handleBidPsmData);
-        }
-
-        function handleBidPsmData(response) {
-            var data, cols, cookedFoodStalls, yearIndex, medianIndex, minIndex, maxIndex;
-            cookedFoodStalls = stallTypes[0];
-            yearIndex = schema.indexOf("Year");
-            medianIndex = schema.indexOf("Median");
-            minIndex = schema.indexOf("Min");
-            maxIndex = schema.indexOf("Max");
-
-            cols = [yearIndex, minIndex, medianIndex, maxIndex];
-
-            if (response.isError()) {
-                Log.error("Query error: " + response.getMessage() + "\n" + response.getDetailedMessage());
-                return;
-            }
-            data = response.getDataTable();
-            //Log.debug(JSON.stringify(data));
-
-            moneyFormat.format(data, medianIndex);
-            moneyFormat.format(data, minIndex);
-            moneyFormat.format(data, maxIndex);
+            moneyFormat.format(data, schema.indexOf("Min"));
+            moneyFormat.format(data, schema.indexOf("Median"));
+            moneyFormat.format(data, schema.indexOf("Max"));
             moneyFormat.format(data, schema.indexOf("Average"));
-
-            bidPsmData = data;
-
-            drawCharts(bidPsmData, cols, cookedFoodStalls);
+            return data;
         }
 
         function getCharts() {
@@ -123,7 +157,7 @@
                             "vAxis" : {
                                 "textPosition" : "out",
                                 "ticks" : [0, 200, 400, 600, 800],
-                                "format" : "$#"
+                                "format" : "$#,#"
                             },
                             "legend" : {
                                 "position" : "none"
@@ -137,7 +171,7 @@
                             },
                             "chartArea" : {
                                 "height" : "80%",
-                                "width" : "70%"
+                                "width" : "60%"
                             }
                         }
                     });
@@ -149,10 +183,38 @@
             }
         }
 
+        function setChartOptions(chartWrapper) {
+            var ticks, type;
+            type = chartWrapper.getChartName();
+            if (!type) {
+                Log.error("Chart type must not be falsy");
+                return;
+            }
+
+            if (type === chartTypes[0]) {
+
+                // Bid chart
+
+                ticks = [0, 1000, 2000, 3000, 4000, 5000];
+            } else if (type === chartTypes[1]) {
+
+                // Bid $psm chart
+
+                ticks = [0, 200, 400, 600, 800];
+            } else {
+                Log.error("Chart type is unknown: " + type);
+                return;
+            }
+
+            chartWrapper.setOption("vAxis.ticks", ticks);
+            return chartWrapper;
+        }
+
         function scrubYear(chartWrapper) {
             google.visualization.events.addListener(chartWrapper, 'ready', function() {
                 google.visualization.events.addListener(chartWrapper.getChart(), "onmouseover", function(e) {
-                    var rowIndex, rows, data, year, cw, hc, chart, yearIndex, view, count, metricLabel, txt, median, min, max;
+                    var rowIndex, rows, data, year, cw, hc, chart, yearIndex, view, count, metricLabel, txt, median, min, max, chartType;
+
                     row = e.row;
                     data = chartWrapper.getDataTable();
 
@@ -161,11 +223,12 @@
                     yearIndex = schema.indexOf("Year");
                     year = data.getValue(row, yearIndex);
 
-                    Log.debug("row: " + row + " year: " + year);
+                    //Log.debug("row: " + row + " year: " + year);
 
                     for (hc in chartWrapperMap) {
                         if (chartWrapperMap.hasOwnProperty(hc)) {
                             cw = chartWrapperMap[hc];
+                            chartType = cw.getChartName();
                             chart = cw.getChart();
                             data = cw.getDataTable();
 
@@ -178,7 +241,7 @@
 
                             if ($.isArray(rows) && rows.length > 0) {
                                 rowIndex = rows[0];
-                                
+
                                 chart.setSelection([{
                                     "row" : rowIndex,
                                     "column" : null
@@ -189,11 +252,30 @@
                                 min = data.getValue(rowIndex, schema.indexOf("Min"));
                                 max = data.getValue(rowIndex, schema.indexOf("Max"));
 
+                                // Bid chart
+
+                                if (chartType === chartTypes[0]) {
+                                    median = numeral(median).format("$0,0");
+                                    min = numeral(min).format("$0,0");
+                                    max = numeral(max).format("$0,0");
+                                }
+
+                                // Bid $psm chart
+
+                                if (chartType === chartTypes[1]) {
+                                    median = numeral(median).format("$0,0") + " psm";
+                                    min = numeral(min).format("$0,0") + " psm";
+                                    max = numeral(max).format("$0,0") + " psm";
+                                }
+
                                 kpi(hc, median, "median");
                                 kpi(hc, min, "min");
                                 kpi(hc, max, "max");
                                 kpiMsg(hc, year, count);
                             } else {
+
+                                // unset chart selection
+
                                 chart.setSelection();
                                 clearKpi(hc);
                             }
@@ -218,8 +300,8 @@
             $msg.addClass("invisible");
         }
 
-        function kpi(hawkerCentre, val, type) {
-            var $kpi, txt, selector;
+        function kpi(hawkerCentre, txt, type) {
+            var $kpi, selector;
             if (type === "min") {
                 selector = ".hawker-centre__kpi__min";
             }
@@ -234,22 +316,20 @@
                 Log.error("$kpi does not exist for selector: " + selector);
                 return;
             }
-            txt = formatBidPsm(val);
+
             $kpi.text(txt);
             $kpi = hawkerCentreMap[hawkerCentre].find(".hawker-centre__kpi");
             $kpi.removeClass("invisible");
         }
 
-        function formatBidPsm(val) {
-            return numeral(val).format("$0,0") + " psm";
-        }
-
-        function drawCharts(data, cols, stallType) {
+        function drawCharts(chartType, data, cols, stallType) {
             var hc, $chart, cw, rows, view;
+            Log.info("draw charts");
             for (hc in chartWrapperMap) {
                 if (chartWrapperMap.hasOwnProperty(hc)) {
                     cw = chartWrapperMap[hc];
-                    $chart = hawkerCentreMap[hc].find(".hawker-centre__chart");
+                    cw.setChartName(chartType);
+                    cw = setChartOptions(cw);
 
                     // Filter by hawker centre to get the relevant rows
                     // Set this as the data table
@@ -270,6 +350,8 @@
                     cw.setView({
                         "columns" : cols
                     });
+                    $chart = hawkerCentreMap[hc].find(".hawker-centre__chart");
+
                     cw.draw($chart[0]);
                 }
             }
