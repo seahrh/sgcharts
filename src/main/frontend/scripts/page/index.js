@@ -8,4 +8,7 @@ $(document).ready(function() {
     $("#cta-outbreak").on("click", function() {
         window.location.href = "http://outbreak.sgcharts.com/";
     });
+    $("#cta-hawker").on("click", function() {
+        window.location.href = "/hawker-rental";
+    });
 }); 

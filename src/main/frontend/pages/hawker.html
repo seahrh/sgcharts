@@ -5,12 +5,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <!-- Facebook Open Graph tags -->
+        <meta property="og:title" content="Hawker Rentals" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://www.sgcharts.com/hawker-rental" />
+        <!-- Image cc attribution to Nate Robert, Flickr https://flic.kr/p/78HJ4H -->
+        <meta property="og:image" content="http://www.sgcharts.com/images/maxwell.jpg" />
+        <meta property="og:site_name" content="Hawker Rentals" />
+        <!-- /Facebook Open Graph tags -->
         <!-- Set title, description and canonical link for SEO -->
-        <title>Charting Singapore's Data on SGCharts.com</title>
-        <meta name="description" content="Charting Singapore's Data on SGCharts.com">
-        <link href="http://www.sgcharts.com/" rel="canonical">
+        <title>Hawker Rentals | Charting Singapore's Data on SGCharts.com</title>
+        <meta name="description" content="The charts show monthly stall rentals of hawker centres and markets managed by the National Environment Agency (NEA).">
+        <link href="http://www.sgcharts.com/hawker-rental" rel="canonical">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css" rel="stylesheet">
+        <link href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.orange-pink.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/site.min.css">
         <link rel="stylesheet" href="/styles/hawker.css">
@@ -21,7 +29,7 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <span class="mdl-layout-title">SGCharts</span>
+                    <span class="mdl-layout-title">SGCharts: Hawker Rentals</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
@@ -29,14 +37,15 @@
                         <a class="mdl-navigation__link" href="http://coe.sgcharts.com/">COE</a>
                         <a class="mdl-navigation__link" href="http://pay.sgcharts.com/">Rat Race</a>
                         <a class="mdl-navigation__link" href="http://outbreak.sgcharts.com/">Outbreak</a>
-                        <a class="mdl-navigation__link" href="http://www.sgcharts.com/">About</a>
+                        <a class="mdl-navigation__link" href="/hawker-rental">Hawker Rentals</a>
+                        <a class="mdl-navigation__link" href="/index">About</a>
                     </nav>
                 </div>
             </header>
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">SGCharts</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="http://www.sgcharts.com/">About</a>
+                    <a class="mdl-navigation__link" href="/index">About</a>
                     <div class="divider-x paper-grey-400"></div>
                     <span class="mdl-navigation__link f-size--11 paper-indigo-500-f">COE</span>
                     <a class="mdl-navigation__link" href="http://coe.sgcharts.com/">Prices &amp; Quotas</a>
@@ -54,6 +63,9 @@
                     <span class="mdl-navigation__link f-size--11 paper-indigo-500-f">Outbreak</span>
                     <a class="mdl-navigation__link" href="http://outbreak.sgcharts.com/">Map</a>
                     <a class="mdl-navigation__link" href="http://outbreak.sgcharts.com/data">Data</a>
+                    <div class="divider-x paper-grey-400"></div>
+                    <span class="mdl-navigation__link f-size--11 paper-indigo-500-f">Hawker Rentals</span>
+                    <a class="mdl-navigation__link" href="/hawker-rental">Hawker Rentals</a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
@@ -63,7 +75,19 @@
                             <div class="page-header">
                                 <h1>Hawker Rentals <small>NEA Hawker Centres &amp; Markets</small></h1>
                             </div>
-
+                            <p>
+                                The charts show monthly stall rentals of hawker centres and markets managed by the National Environment Agency (NEA). Stall rentals vary widely, partly due to government subsidised rent. For example, the cooked food stall rental was $109 &mdash; $668 psm at Amoy Street Food Centre in 2014.
+                            </p>
+                            <p>
+                                According to NEA’s rental policy <a href="http://www.nea.gov.sg/docs/default-source/public-health/rental-policy-for-stalls-in-hawker-centres-and-wet-markets.pdf?sfvrsn=2" target="_blank">[PDF]</a>, subsidised stallholders are the original stallholders who were relocated from the streets in the early 1970s or allocated stalls under the Government's hardship scheme (discontinued since 1989). Thus, it is unlikely for new hawkers to qualify for subsidy.
+                            </p>
+                            <p>
+                                2015’s data is included, even though the year is not over yet.
+                            </p>
+                            <p>
+                                Source: <a href="http://www.nea.gov.sg/services-forms/tender-notice" target="_blank">National Environment Agency, Hawker Centres Division</a>. The dataset in the PDF file is converted to an online spreadsheet (<a href="https://docs.google.com/spreadsheets/d/1dLIO3YPGuAG_komdWQc1Hwl4ED6jDuaJzoSJ__zqmO4/edit?usp=sharing" target="_blank">Google Sheet</a> | <a href="https://docs.google.com/spreadsheets/d/1dLIO3YPGuAG_komdWQc1Hwl4ED6jDuaJzoSJ__zqmO4/pubhtml" target="_blank">webpage</a>).
+                            </p>
+                            <hr>
                         </div>
                     </div>
                     <div class="row">
@@ -119,7 +143,7 @@
                 <div class="hawker-centre__chart"></div>
             </div>
         </div>
-        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="/vendor/moment/moment.min.js"></script>
