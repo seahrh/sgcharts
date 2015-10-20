@@ -68,21 +68,21 @@ gulp.task('images', ['clean:images'], function() {
 
 gulp.task('styles', ['clean:styles'], function(cb) {
     
-    // Page styles have no deps on site styles, so run them concurrently.
+    // Style tasks have no deps on each other, so run them concurrently.
     
-    runSequence(['styles:site', 'styles:page'], cb);
+    runSequence(['styles:site', 'styles:hawker'], cb);
 });
 
 gulp.task('styles:site', function() {
     return gulp.src('styles/site/*.css', {
         cwd : bases.app
-    }).pipe($.concat('site.css')).pipe($.minifyCss()).pipe($.rename('site.min.css')).pipe(gulp.dest(bases.dist + 'styles'));
+    }).pipe($.concat('site.all.css')).pipe($.minifyCss()).pipe($.rename('site.min.css')).pipe(gulp.dest(bases.dist + 'styles'));
 });
 
-gulp.task('styles:page', function() {
-    return gulp.src('styles/page/*.css', {
+gulp.task('styles:hawker', function() {
+    return gulp.src(['styles/site/*.css', 'styles/page/hawker.css'], {
         cwd : bases.app
-    }).pipe(gulp.dest(bases.dist + 'styles'));
+    }).pipe($.concat('hawker.all.css')).pipe($.minifyCss()).pipe($.rename('hawker.min.css')).pipe(gulp.dest(bases.dist + 'styles'));
 });
 
 gulp.task('scripts:ext', function() {
