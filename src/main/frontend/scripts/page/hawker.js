@@ -399,6 +399,15 @@
                             cw = chartWrapperMap[hc];
                             chartType = cw.getChartName();
                             chart = cw.getChart();
+                            
+                            // Chart triggers event even though it is not drawn yet
+                            // Check that chart exists before we use it
+                            
+                            if (!chart) {
+                                Log.warn("Chart object must exist");
+                                return;
+                            }
+                            
                             data = cw.getDataTable();
 
                             rows = data.getFilteredRows([{
