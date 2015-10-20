@@ -340,7 +340,7 @@
                             },
                             "chartArea" : {
                                 "height" : "80%",
-                                "width" : "60%"
+                                "width" : "70%"
                             }
                         }
                     });
