@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <application>${app.id}</application>
-    <version>${app.version}</version>
+    <runtime>java8</runtime>
     <threadsafe>true</threadsafe>
     <system-properties>
-		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
-		
-		<!-- Root directory for webpages -->
-		
-		<property name="sg.pages.root" value="/WEB-INF/pages/" />
-	</system-properties>
-	<warmup-requests-enabled>true</warmup-requests-enabled>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+        <!-- Root directory for webpages -->
+        <property name="sg.pages.root" value="/WEB-INF/pages/" />
+    </system-properties>
 </appengine-web-app>
