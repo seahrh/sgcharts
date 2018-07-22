@@ -2,13 +2,13 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
-    <version>3.1</version>
+    <version>3.2</version>
     <groupId>com.sgcharts</groupId>
     <artifactId>sgcharts</artifactId>
     <properties>
         <app.id>sgcharts-1007</app.id>
-        <app.version>v3-1</app.version>
-        <appengine.version>1.9.62</appengine.version>
+        <app.version>v3-2</app.version>
+        <appengine.version>1.9.64</appengine.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>24.0-jre</version>
+            <version>25.1-jre</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.9.9</version>
+            <version>2.10</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
@@ -91,7 +91,7 @@
         <dependency>
             <groupId>com.google.truth</groupId>
             <artifactId>truth</artifactId>
-            <version>0.39</version>
+            <version>0.42</version>
             <scope>test</scope>
         </dependency>
         <dependency>
