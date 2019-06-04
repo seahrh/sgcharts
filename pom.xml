@@ -2,20 +2,20 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
-    <version>3.2</version>
+    <version>3.3</version>
     <groupId>com.sgcharts</groupId>
     <artifactId>sgcharts</artifactId>
     <properties>
         <app.id>sgcharts-1007</app.id>
-        <app.version>v3-2</app.version>
-        <appengine.version>1.9.64</appengine.version>
+        <app.version>v3-3</app.version>
+        <appengine.version>1.9.74</appengine.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <archiveClasses>true</archiveClasses>
-        <slf4j.version>1.7.25</slf4j.version>
+        <slf4j.version>1.7.26</slf4j.version>
     </properties>
     <prerequisites>
         <maven>3.5</maven>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10</version>
+            <version>2.10.2</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
@@ -91,7 +91,7 @@
         <dependency>
             <groupId>com.google.truth</groupId>
             <artifactId>truth</artifactId>
-            <version>0.42</version>
+            <version>0.45</version>
             <scope>test</scope>
         </dependency>
         <dependency>
